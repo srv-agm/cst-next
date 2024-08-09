@@ -1,0 +1,91 @@
+/* styles/Login.module.css */
+
+.container {
+  background: rgb(84, 0, 147);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.circle1 {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  right: -100px;
+}
+
+.circle2 {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  left: -150px;
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.infoBox {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.infoText {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.loginBox {
+  background-color: white;
+  color: black;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  z-index: 1;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.forgotPassword {
+  text-align: right;
+  color: #6c63ff;
+  cursor: pointer;
+}
+
+/* .signUpLink {
+  text-align: center;
+} */
+
+.signUpLink a {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.pageWrapper {
+  position: relative;
+}
+
+.logoWrapper {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  z-index: 1000;
+}
+
