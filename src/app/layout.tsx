@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "./Components/Sidebar";
-import { Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface MainLayoutProps {
@@ -9,10 +8,9 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="d-flex">
-      <Sidebar />
-      <Col>{children}</Col>
-    </div>
+    <html>
+      <body>{children}</body>
+    </html>
   );
 };
 

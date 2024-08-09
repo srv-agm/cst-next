@@ -13,7 +13,7 @@ interface Column {
 }
 
 interface CustomTableProps {
-  data?: any[];
+  data?: any[]; // Ensure data is typed as an array
   columns?: Column[];
   hover?: boolean;
   striped?: boolean;
@@ -34,7 +34,7 @@ interface CustomTableProps {
 }
 
 const CustomTable: React.FC<CustomTableProps> = ({
-  data = [],
+  data = [], // Default to empty array
   columns = [],
   hover = true,
   striped = true,
@@ -58,6 +58,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   };
 
   const hasTotalColumn = columns.some((col) => col.total);
+
+  // Ensure `data` is an array before mapping
+  const rows = Array.isArray(data) ? data : [];
 
   return (
     <div className="tdCustomContainer">
@@ -91,7 +94,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             </tr>
           </tbody>
         </table>
-      ) : data.length === 0 ? (
+      ) : rows.length === 0 ? (
         <table>
           <thead className="TheadFixed">
             <tr>
@@ -115,7 +118,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     left: "50%",
                   }}
                 >
-                  {/* <NoData /> */}
                   No data
                 </div>
               </td>
@@ -137,7 +139,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             </tr>
           </thead>
           <tbody style={bodyStyle}>
-            {data.map((row, rowIndex) => (
+            {rows.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
                 className={`${hover ? "hover" : ""} ${
@@ -218,7 +220,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 {columns.map((col, index) => (
                   <td style={cellStyle} key={index}>
                     {col.total ? (
-                      <strong>{calculateGrandTotal(data, col.field)}</strong>
+                      <strong>{calculateGrandTotal(rows, col.field)}</strong>
                     ) : (
                       ""
                     )}
