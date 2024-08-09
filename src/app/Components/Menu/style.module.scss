@@ -1,0 +1,140 @@
+@import '../../../styles/scroll-bar.scss';
+
+nav.sideMenu {
+  height: 100%;
+  padding: 0.5rem 0;
+  background-color: var(--bs-secondary);
+  &:hover {
+    & > ul.menu > li {
+      & > input:not(:checked) ~ div.subMenu {
+        display: block !important;
+      }
+      & > label {
+        justify-content: flex-start !important;
+        & > a,
+        & > span {
+          display: block !important;
+        }
+      }
+    }
+    & > div.tail > span {
+      width: fit-content !important;
+    }
+  }
+  & > input {
+    display: none;
+    &:checked {
+      & ~ ul.menu {
+        padding: 0;
+        margin: 0 0 auto 0;
+        & > li {
+          & > div.subMenu {
+            display: none;
+          }
+          & > label {
+            justify-content: center;
+            & > a,
+            & > span {
+              display: none;
+            }
+          }
+        }
+      }
+      & ~ div.tail > span {
+        width: 0;
+        overflow: hidden;
+      }
+    }
+  }
+  & > {
+    margin: 0 !important;
+  }
+  ul.menu {
+    @include ScrollBar();
+    margin: 0 0 auto 0;
+    padding: 0 1rem;
+    width: 100%;
+    padding-right: 0;
+    list-style-type: none;
+    overflow-y: auto;
+    & > li {
+      & > input[type='checkbox'] {
+        display: none;
+        &:not(:checked) ~ label {
+          max-height: 1000vh;
+          background-color: var(--bs-primary);
+          & > span.icon {
+            transform: rotateZ(180deg);
+          }
+        }
+      }
+      & > label {
+        padding: 0.5rem;
+        // border-radius: 0.5rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        color: white;
+        transition: background-color 150ms ease-in-out;
+        & > a {
+          color: white;
+          text-decoration: none;
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+          overflow: hidden;
+        }
+        &:hover,
+        &.active {
+          background-color: var(--bs-primary);
+        }
+        & > input[type='checkbox'] {
+          display: none;
+        }
+        & > span.title {
+          flex-grow: 1;
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+          overflow: hidden;
+        }
+        & > span.icon {
+          transition: transform 200ms ease;
+        }
+      }
+      & > div.subMenu {
+        max-height: 1000vh;
+        transition: height 350ms ease-in-out;
+      }
+      & > input[type='checkbox']:checked {
+        & ~ label > span.icon {
+          transform: rotateX(45deg);
+        }
+        & ~ div.subMenu {
+          overflow: hidden;
+          max-height: 0;
+        }
+      }
+    }
+  }
+  & > ul.menu {
+    padding: 0;
+  }
+  div.tail {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    transition: all 200ms ease;
+    &:hover {
+      background-color: var(--bs-primary);
+    }
+    & > span {
+      width: 15ch;
+      overflow: hidden;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

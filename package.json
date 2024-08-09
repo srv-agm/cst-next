@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.5"
+    "next": "14.2.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
