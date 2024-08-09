@@ -1,11 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation"; // Use this to get the pathname
 import "./Sidebar.css";
 
 const Sidebar: React.FC = () => {
-  const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname(); // Get the current path
 
   return (
     <div className="sidebar" style={{ fontFamily: "Poppins, sans-serif" }}>

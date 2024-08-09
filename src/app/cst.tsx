@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Row, Col, Modal, Button, Form, Offcanvas } from "react-bootstrap";
 import CustomTable from "./Components/CustomTable";
