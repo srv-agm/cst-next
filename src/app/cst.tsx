@@ -255,7 +255,7 @@ const CST: React.FC = () => {
   };
 
   return (
-    <div style={{ marginLeft: "15rem", padding: "10px" }}>
+    <div style={{ marginLeft: "15rem" , padding:"5px" }}>
       <div
         className="button-container"
         style={{ textAlign: "right", marginBottom: "5px" }}
@@ -364,13 +364,14 @@ const CST: React.FC = () => {
           </Form>
         </Offcanvas.Body>
       </Offcanvas>
-
-      <CustomTable
-        loading={loading}
-        columns={columns}
-        data={data ?? []}
-        onRowClick={handleRowClick}
-      />
+      <div className="tableClass">
+        <CustomTable
+          loading={loading}
+          columns={columns}
+          data={data ?? []}
+          onRowClick={handleRowClick}
+        />
+      </div>
       <Toaster />
 
       {selectedRow && (

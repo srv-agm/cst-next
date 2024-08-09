@@ -141,6 +141,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
           <tbody style={bodyStyle}>
             {data.map((row, rowIndex) => (
               <tr
+                style={{ cursor: "pointer" }}
                 key={rowIndex}
                 className={`${hover ? "hover" : ""} ${
                   striped ? "striped" : ""
