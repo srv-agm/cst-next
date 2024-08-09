@@ -1,5 +1,7 @@
 import React from "react";
-import "./table.css";
+import "./table.scss";
+// import Utils from "../../../../Utils";
+// import NoData from "../../../../Components/Common/NoData";
 import { AiOutlineDownload, AiOutlineDelete } from "react-icons/ai";
 import { MdModeEditOutline, MdVisibility } from "react-icons/md";
 import { ImCancelCircle } from "react-icons/im";
@@ -13,8 +15,8 @@ interface Column {
 }
 
 interface CustomTableProps {
-  data?: any[]; // Ensure data is typed as an array
-  columns?: Column[];
+  data: any[];
+  columns: Column[];
   hover?: boolean;
   striped?: boolean;
   headerStyle?: React.CSSProperties;
@@ -29,12 +31,12 @@ interface CustomTableProps {
   onView?: (row: any, index: number) => void;
   onDel?: (row: any, index: number) => void;
   onDown?: (row: any, index: number) => void;
-  onRowClick?: (row: any, index: number) => void;
   loading?: boolean;
+  onRowClick?: (row: any, index: number) => void;
 }
 
 const CustomTable: React.FC<CustomTableProps> = ({
-  data = [], // Default to empty array
+  data = [],
   columns = [],
   hover = true,
   striped = true,
@@ -50,17 +52,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
   onView,
   onDel,
   onDown = () => {},
-  onRowClick,
   loading = false,
+  onRowClick = () => {},
 }) => {
   const calculateGrandTotal = (data: any[], field: string) => {
     return data.reduce((acc, row) => acc + (row[field] || 0), 0);
   };
 
   const hasTotalColumn = columns.some((col) => col.total);
-
-  // Ensure `data` is an array before mapping
-  const rows = Array.isArray(data) ? data : [];
 
   return (
     <div className="tdCustomContainer">
@@ -94,7 +93,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             </tr>
           </tbody>
         </table>
-      ) : rows.length === 0 ? (
+      ) : data.length === 0 ? (
         <table>
           <thead className="TheadFixed">
             <tr>
@@ -118,6 +117,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     left: "50%",
                   }}
                 >
+                  {/* <NoData /> */}
                   No data
                 </div>
               </td>
@@ -139,14 +139,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
             </tr>
           </thead>
           <tbody style={bodyStyle}>
-            {rows.map((row, rowIndex) => (
+            {data.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
                 className={`${hover ? "hover" : ""} ${
                   striped ? "striped" : ""
                 }`}
-                onClick={() => onRowClick?.(row, rowIndex)}
-                style={{ cursor: "pointer" }}
+                onClick={() => onRowClick?.(row, rowIndex)} // Add click handler
               >
                 {columns.map((col, colIndex) => (
                   <td style={cellStyle} key={colIndex}>
@@ -158,10 +157,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     {isEdit && (
                       <span
                         style={{ cursor: "pointer", marginRight: "10px" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onEdit?.(row, rowIndex);
-                        }}
+                        onClick={() => onEdit?.(row, rowIndex)}
                         className="svg-icon svg-icon-md svg-icon-primary"
                       >
                         <MdModeEditOutline color="#A21094" />
@@ -170,10 +166,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     {isDelete && (
                       <span
                         style={{ cursor: "pointer", marginRight: "10px" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDel?.(row, rowIndex);
-                        }}
+                        onClick={() => onDel?.(row, rowIndex)}
                         className="svg-icon svg-icon-md svg-icon-primary"
                       >
                         <AiOutlineDelete color="#A21094" />
@@ -182,10 +175,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     {isDownload && (
                       <span
                         style={{ cursor: "pointer", marginRight: "10px" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDown?.(row, rowIndex);
-                        }}
+                        onClick={() => onDown?.(row, rowIndex)}
                         className="svg-icon svg-icon-md svg-icon-primary"
                       >
                         <AiOutlineDownload color="#A21094" />
@@ -193,7 +183,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     )}
                     {isCancel && (
                       <span
-                        style={{ cursor: "pointer", marginRight: "0px" }}
+                        style={{ cursor: "pointer" }}
                         className="svg-icon svg-icon-md svg-icon-primary"
                       >
                         <ImCancelCircle color="#A21094" />
@@ -201,14 +191,15 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     )}
                     {isView && (
                       <span
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onView?.(row, rowIndex);
-                        }}
+                        title="View Detail"
+                        style={{ cursor: "pointer", margin: "10px" }}
+                        onClick={() => onView?.(row, rowIndex)}
                         className="svg-icon svg-icon-md svg-icon-primary"
                       >
-                        <MdVisibility color="#A21094" />
+                        <MdVisibility
+                          color="#A21094"
+                          style={{ fontSize: "20px" }}
+                        />
                       </span>
                     )}
                   </td>
@@ -220,7 +211,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 {columns.map((col, index) => (
                   <td style={cellStyle} key={index}>
                     {col.total ? (
-                      <strong>{calculateGrandTotal(rows, col.field)}</strong>
+                      <strong>{calculateGrandTotal(data, col.field)}</strong>
                     ) : (
                       ""
                     )}

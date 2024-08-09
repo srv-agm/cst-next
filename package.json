@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "next": "14.2.5",
+    "sass": "^1.77.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {

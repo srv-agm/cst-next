@@ -139,13 +139,14 @@ const CST: React.FC = () => {
       );
 
       const result = await response.json();
-      setData(result);
+      setData(result?.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
   };
+  console.log(data, "asdasdadsadadas");
 
   const fetchCategories = async () => {
     try {
@@ -364,7 +365,7 @@ const CST: React.FC = () => {
       <CustomTable
         loading={loading}
         columns={columns}
-        data={data}
+        data={data ?? []}
         onRowClick={handleRowClick}
       />
       <Toaster />
