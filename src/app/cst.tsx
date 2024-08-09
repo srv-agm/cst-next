@@ -255,8 +255,11 @@ const CST: React.FC = () => {
   };
 
   return (
-    <div className="test">
-      <div className="button-container">
+    <div style={{ marginLeft: "15rem", padding: "10px" }}>
+      <div
+        className="button-container"
+        style={{ textAlign: "right", marginBottom: "5px" }}
+      >
         <Button
           title="Filters"
           style={{ backgroundColor: "purple" }}
